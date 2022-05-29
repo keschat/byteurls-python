@@ -1,0 +1,56 @@
+
+Endpoint	            HTTP Verb   Request Body            Action
+
+---
+
+/	                    GET                                 Returns a Hello, World! string
+
+---
+
+/url	                POST	    Your target URL         Shows the created url_key with additional info, including a secret_key
+
+---
+
+/{url_key}	            GET		                            Forwards to your target URL
+
+---
+
+/admin/{secret_key}	    GET		                            Shows administrative info about your shortened URL
+
+---
+
+/admin/{secret_key}	    DELETE	    Your secret key	        Deletes your shortened URL
+
+
+{
+  "target_url": "https://realpython.com",
+  "is_active": true,
+  "clicks": 0,
+  "url": "JNPGB",
+  "admin_url": "MIZJZYVA"
+}
+
+In schemas.py, you defined what data your API expected from the client and the server. 
+In models.py, you declare how your data should be stored in the database.
+
+The router dependencies are executed first, then the dependencies in the decorator, and 
+then the normal parameter dependencies.
+
+Note that, much like dependencies in path operation decorators, no value will be passed 
+to your path operation function.
+
+
+router = APIRouter(
+    prefix="/items",
+    tags=["items"],
+    # dependencies=[Depends(get_token_header)], # router dependency
+    responses={404: {"description": "Not found"}},
+)
+
+@router.get("/{item_id}") # path operation decorators -> path dependency
+async def read_item(item_id: str): # path operation function -> normal parameter dependency
+
+
+git remote add origin git@github.com:keschat/byteurls-python.git
+
+git remote -v
